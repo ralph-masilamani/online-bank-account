@@ -1,0 +1,38 @@
+#%RAML 1.0
+title: onlinebank
+baseUri: http://examples.fabric360.io
+
+version: 0.0.1
+description: 'Example of Online Banking Service'
+
+/balances:
+  get: # HTTP method declaration
+    description: Get a Balance for an account.
+    queryParameters:
+      accountId: number
+    responses: # declare a response
+      200: # HTTP status code
+        body: # declare content of response
+          application/json: # media type
+            type: object
+            properties:
+              amount: number
+              currency: string
+            example: | # example of Get Balance response looks
+              {
+                "amount": 4555.65,
+                "currency": "USD"
+              }
+      404:
+        body:
+          application/json: # media type
+            type: object
+            properties:
+              errorCode: number
+              errorMessage: string
+            example:
+              {
+                "errorCode": 3466,
+                  "errorMessage": "No Such Account"
+              }
+
